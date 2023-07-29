@@ -7,13 +7,14 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageInputView: UIView!
     @IBOutlet weak var textView: UITextView!
     
     private var tableViewSize: CGSize?
+    private var keyboardFrame: CGRect?
     private var messageInputViewFrame: CGRect?
     private let MIN_HEIGHT_MSG: CGFloat = 50
     private let MAX_HEIGHT_MSG: CGFloat = 100
@@ -31,6 +32,10 @@ final class ViewController: UIViewController {
     private func setInitLayoutPosition() {
         messageInputViewFrame = messageInputView.frame
         tableViewSize = tableView.frame.size
+    }
+    
+    private func setUpDelegate() {
+        textView.delegate = self
     }
     
     private func setUpNotification() {
@@ -55,7 +60,8 @@ final class ViewController: UIViewController {
         guard let keyboardInfo = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
-        drawMessageInputView(keyboardInfo.cgRectValue)
+        keyboardFrame = keyboardInfo.cgRectValue
+        drawMessageInputView()
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
@@ -69,7 +75,7 @@ final class ViewController: UIViewController {
         tableView.frame.size = tableViewSize
     }
     
-    private func drawMessageInputView(_ keyboardFrame: CGRect) {
+    private func drawMessageInputView() {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let screenSize = UIScreen.main.bounds.size
         var height = textView.sizeThatFits(CGSize(
@@ -83,22 +89,28 @@ final class ViewController: UIViewController {
             height = MAX_HEIGHT_MSG
         }
         
-        textView.frame = CGRect(
-            x: textView.frame.origin.x,
-            y: textView.frame.origin.y,
-            width: textView.frame.width,
-            height: height
-        )
-        messageInputView.frame = CGRect(
-            x: messageInputView.frame.origin.x,
-            y: screenSize.height - keyboardFrame.size.height - messageInputView.frame.height,
-            width: messageInputView.frame.width,
-            height: height
-        )
-        tableView.frame.size = CGSize(
-            width: tableView.frame.width,
-            height: screenSize.height - (statusBarHeight + keyboardFrame.height)
-        )
+        if let keyboardFrame = keyboardFrame {
+            textView.frame = CGRect(
+                x: textView.frame.origin.x,
+                y: textView.frame.origin.y,
+                width: textView.frame.width,
+                height: height
+            )
+            messageInputView.frame = CGRect(
+                x: messageInputView.frame.origin.x,
+                y: screenSize.height - keyboardFrame.size.height - messageInputView.frame.height,
+                width: messageInputView.frame.width,
+                height: height
+            )
+            tableView.frame.size = CGSize(
+                width: tableView.frame.width,
+                height: screenSize.height - (statusBarHeight + keyboardFrame.height)
+            )
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        drawMessageInputView()
     }
     
     @IBAction func onCamertaButtonTapped(_ sender: UIButton) {
