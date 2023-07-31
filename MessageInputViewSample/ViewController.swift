@@ -158,7 +158,6 @@ final class ViewController: UIViewController {
     
     func drawMessageInputView() {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let bound = UIScreen.main.bounds.size
         var height = textView.sizeThatFits(CGSize(
             width: textView.frame.size.width,
             height: CGFloat.greatestFiniteMagnitude)
@@ -179,13 +178,13 @@ final class ViewController: UIViewController {
             )
             messageInputView.frame = CGRect(
                 x: messageInputView.frame.origin.x,
-                y: bound.height - keyboardFrame.size.height - messageInputView.frame.height,
+                y: view.frame.height - keyboardFrame.size.height - (textView.frame.height + (TEXT_VIEW_MARGIN * 2)),
                 width: view.frame.width,
                 height: height + (TEXT_VIEW_MARGIN * 2)
             )
             tableView.frame.size = CGSize(
                 width: tableView.frame.width,
-                height: bound.height - (statusBarHeight + keyboardFrame.height + height)
+                height: view.frame.height - (statusBarHeight + keyboardFrame.height + height)
             )
         }
     }
