@@ -125,14 +125,7 @@ final class ViewController: UIViewController, UITextViewDelegate {
     }
 }
 
-final class ViewController2: UIViewController, UITextViewDelegate {
-    
-    let MARGIN_MSG: CGFloat = 1
-    let HEIGHT_BOX: CGFloat = 44
-    let WIDTH_SUBMIT: CGFloat = 70
-    
-    let MIN_HEIGHT_MSG: CGFloat = 50
-    let MAX_HEIGHT_MSG: CGFloat = 100
+final class ViewController2: UIViewController {
     
     private var tableView = UITableView()
     private var messageInputView = UIView()
@@ -148,6 +141,8 @@ final class ViewController2: UIViewController, UITextViewDelegate {
     private let INPUT_VIEW_HEIGHT: CGFloat = 44
     private let TEXT_VIEW_HEIGHT: CGFloat = 36
     private let TEXT_VIEW_MARGIN: CGFloat = 4
+    private let MIN_TEXT_VIEW_HEIGHT: CGFloat = 36
+    private let MAX_TEXT_VIEW_HEIGHT: CGFloat = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,7 +174,7 @@ final class ViewController2: UIViewController, UITextViewDelegate {
         )
         tableView.frame = frame
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .blue
+        tableView.backgroundColor = .white
         
         view.addSubview(tableView)
     }
@@ -207,7 +202,7 @@ final class ViewController2: UIViewController, UITextViewDelegate {
         cameraButton.frame = frame
         cameraButton.setImage(UIImage(systemName: "camera.fill"), for: .normal)
         cameraButton.tintColor = .black
-        cameraButton.backgroundColor = .red
+        cameraButton.backgroundColor = .clear
         messageInputView.addSubview(cameraButton)
     }
     
@@ -236,7 +231,7 @@ final class ViewController2: UIViewController, UITextViewDelegate {
         sendButton.frame = frame
         sendButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
         sendButton.tintColor = .black
-        sendButton.backgroundColor = .green
+        sendButton.backgroundColor = .clear
         messageInputView.addSubview(sendButton)
     }
     
@@ -285,10 +280,10 @@ final class ViewController2: UIViewController, UITextViewDelegate {
             height: CGFloat.greatestFiniteMagnitude)
         ).height
         
-        if height < MIN_HEIGHT_MSG {
-            height = MIN_HEIGHT_MSG
-        } else if MAX_HEIGHT_MSG < height {
-            height = MAX_HEIGHT_MSG
+        if height < MIN_TEXT_VIEW_HEIGHT {
+            height = MIN_TEXT_VIEW_HEIGHT
+        } else if MAX_TEXT_VIEW_HEIGHT < height {
+            height = MAX_TEXT_VIEW_HEIGHT
         }
         
         if let keyboardFrame = keyboardFrame {
@@ -301,8 +296,8 @@ final class ViewController2: UIViewController, UITextViewDelegate {
             messageInputView.frame = CGRect(
                 x: messageInputView.frame.origin.x,
                 y: bound.height - keyboardFrame.size.height - messageInputView.frame.height,
-                width: textView.frame.width,
-                height: height
+                width: view.frame.width,
+                height: height + (TEXT_VIEW_MARGIN * 2)
             )
             tableView.frame.size = CGSize(
                 width: tableView.frame.width,
@@ -310,6 +305,9 @@ final class ViewController2: UIViewController, UITextViewDelegate {
             )
         }
     }
+}
+
+extension ViewController2: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         drawMessageInputView()
