@@ -57,12 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				D80AC9072A74E27700306FF2 /* AppDelegate.swift */,
+				D80AC9102A74E27800306FF2 /* Assets.xcassets */,
+				D80AC9152A74E27800306FF2 /* Info.plist */,
+				D80AC9122A74E27800306FF2 /* LaunchScreen.storyboard */,
+				D80AC90D2A74E27700306FF2 /* Main.storyboard */,
 				D80AC9092A74E27700306FF2 /* SceneDelegate.swift */,
 				D80AC90B2A74E27700306FF2 /* ViewController.swift */,
-				D80AC90D2A74E27700306FF2 /* Main.storyboard */,
-				D80AC9102A74E27800306FF2 /* Assets.xcassets */,
-				D80AC9122A74E27800306FF2 /* LaunchScreen.storyboard */,
-				D80AC9152A74E27800306FF2 /* Info.plist */,
 			);
 			path = MessageInputViewSample;
 			sourceTree = "<group>";
