@@ -24,6 +24,7 @@
 		D80AC9102A74E27800306FF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D80AC9132A74E27800306FF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D80AC9152A74E27800306FF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D80AC9232A77750B00306FF2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 				D80AC90D2A74E27700306FF2 /* Main.storyboard */,
 				D80AC9092A74E27700306FF2 /* SceneDelegate.swift */,
 				D80AC90B2A74E27700306FF2 /* ViewController.swift */,
+				D80AC9232A77750B00306FF2 /* README.md */,
 			);
 			path = MessageInputViewSample;
 			sourceTree = "<group>";
