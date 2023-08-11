@@ -12,6 +12,7 @@ final class ViewController: UIViewController {
     private var tableView = UITableView()
     private var messageInputView = UIView()
     private var textView = UITextView()
+    private var placeHolder = UILabel()
     private var cameraButton = UIButton()
     private var sendButton = UIButton()
     
@@ -41,6 +42,7 @@ final class ViewController: UIViewController {
         setUpMessageInputView()
         setUpCameraButton()
         setUpTextView()
+        setUpPlaceHolder()
         setUpSendButton()
         messageInputViewFrame = messageInputView.frame
         tableViewSize = tableView.frame.size
@@ -102,6 +104,20 @@ final class ViewController: UIViewController {
         textView.delegate = self
         textView.backgroundColor = .lightGray
         messageInputView.addSubview(textView)
+    }
+    
+    private func setUpPlaceHolder() {
+        let frame = CGRect(
+            x: 5,
+            y: 0,
+            width: 20,
+            height: TEXT_VIEW_HEIGHT
+        )
+        placeHolder.frame = frame
+        placeHolder.text = "Aa"
+        placeHolder.textColor = .gray
+        placeHolder.font = UIFont.systemFont(ofSize: 16)
+        textView.addSubview(placeHolder)
     }
     
     private func setUpSendButton() {
@@ -201,6 +217,13 @@ final class ViewController: UIViewController {
 extension ViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
+        if textView.text == "" {
+            sendButton.isEnabled = false
+            placeHolder.isHidden = false
+        } else {
+            sendButton.isEnabled = true
+            placeHolder.isHidden = true
+        }
         drawMessageInputView()
     }
 }
